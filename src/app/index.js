@@ -3,10 +3,11 @@
  */
 
 import Framework from 'framework7/framework7.esm.bundle';
-import 'framework7/css/framework7.ios.min.css';
+import 'framework7/css/framework7.min.css';
 import {
   Home,
   About,
+  List,
 } from './page';
 import routes from './routes';
 
@@ -18,6 +19,9 @@ const pageEvent = {
         break;
       case 'about':
         new About().init();
+        break;
+      case 'list':
+        new List().init();
         break;
       default:
         break;
@@ -32,15 +36,16 @@ window.app = new Framework({
   panel: {
     swipe: 'left',
   },
+  theme: 'ios',
   routes: routes,
   on: {
     pageBeforeIn(pageData) {
       pageEvent.pageInitJs(pageData.name);
     },
-    routerAjaxStart(xhr) {
+    routerAjaxStart() {
       window.app.preloader.show()
     },
-    routerAjaxComplete(xhr) {
+    routerAjaxComplete() {
       window.app.preloader.hide()
     }
   },

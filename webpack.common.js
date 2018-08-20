@@ -48,18 +48,24 @@ const webpackConfig = {
         }
       },
       {
-        test: /\.(html)$/,
-        use: {
-          loader: 'html-loader',
-        }
+        test: /\.html$/,
+        use: [
+          'html-loader'
+        ]
+      },
+      {
+        test: /\.json$/,
+        use: [
+          'json-loader'
+        ]
       }
     ]
   },
   plugins: [
     new CopyWebpackPlugin([
       {
-        from: './src/app',
-        to: './page'
+        from: './src/pages',
+        to: './src/pages'
       }
     ]),
     new HtmlWebpackPlugin({

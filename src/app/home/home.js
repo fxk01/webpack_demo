@@ -11,6 +11,6 @@ export default class Home extends widget {
   }
 
   init() {
-    console.log(1);
+    console.log('home');
   }
 };
