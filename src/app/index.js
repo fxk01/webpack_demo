@@ -53,7 +53,11 @@ window.app = new Framework({
     iosDynamicNavbar: false,
     xhrCache: false,
     pushState: true,
+    history: true,
+    stackPages: true,
   }
 });
 
 window.mainView = window.app.views.create('.view-main');
+
+console.log(window.app.views.current);

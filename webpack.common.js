@@ -10,7 +10,7 @@ const PurifyCssWebpack = require('purifycss-webpack');
 
 const webpackConfig = {
   entry: {
-    app: ['./src/app/index.js']
+    app: ['./src/app/index.js'],
   },
   module: {
     rules: [
@@ -71,7 +71,11 @@ const webpackConfig = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      hash: process.env.NODE_ENV === 'production'
+      hash: false,
+      minify:{
+        removeComments:false,
+        collapseWhitespace:false
+      }
     }),
     new PurifyCSSPlugin({
       paths: glob.sync(path.join(__dirname, 'src/*.html')),
@@ -82,8 +86,13 @@ const webpackConfig = {
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js',
+    filename: '[name]-[hash].js',
     publicPath: ''
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
   },
 };
 
