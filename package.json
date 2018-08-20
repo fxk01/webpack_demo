@@ -33,7 +33,8 @@
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5",
-    "webpack-merge": "^4.1.4"
+    "webpack-merge": "^4.1.4",
+    "webpack-parallel-uglify-plugin": "^1.1.0"
   },
   "browserslist": [
     "> 1%",
@@ -41,6 +42,7 @@
     "not ie <= 8"
   ],
   "dependencies": {
-    "framework7": "^3.1.1"
+    "framework7": "^3.1.1",
+    "html-entities": "^1.2.1"
   }
 }

@@ -18,18 +18,24 @@ const webpackConfig = {
         test:/\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader'
-        })
+          use: ['css-loader', 'postcss-loader']
+        }),
+        include: [
+          path.join(__dirname, 'src'),
+          path.join(__dirname, '/node_modules/'),
+        ]
       },
       {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ["css-loader", "less-loader", "postcss-loader"]
-        })
+          use: ['css-loader', 'postcss-loader', 'less-loader']
+        }),
+        include: path.join(__dirname, 'src'),
+        exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|jpeg|gif|svg)/,
         use: [{
           loader: 'url-loader',
           options: { // 这里的options选项参数可以定义多大的图片转换为base64
@@ -71,10 +77,11 @@ const webpackConfig = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      hash: false,
+      hash: true,
       minify:{
-        removeComments:false,
-        collapseWhitespace:false
+        removeComments: false,
+        collapseWhitespace: false,
+        removeAttributeQuotes: true
       }
     }),
     new PurifyCSSPlugin({
@@ -82,17 +89,16 @@ const webpackConfig = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin("styles.css"),
+    new ExtractTextPlugin('[name]-[hash].css'),
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name]-[hash].js',
     publicPath: ''
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all'
-    }
+  resolve:{
+    extensions: [".js",".css",".json"],
+    alias: {} //配置别名可以加快webpack查找模块的速度
   },
 };
 

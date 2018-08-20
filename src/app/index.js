@@ -2,8 +2,8 @@
  入口文件
  */
 
-import Framework from 'framework7/framework7.esm.bundle';
-import 'framework7/css/framework7.min.css';
+import Framework from '../../node_modules/framework7/js/framework7';
+import '../../node_modules/framework7/css/framework7.min.css';
 import {
   Home,
   About,
@@ -60,4 +60,6 @@ window.app = new Framework({
 
 window.mainView = window.app.views.create('.view-main');
 
-console.log(window.app.views.current);
+if(window.app.views.current.router.history.length === 1) {
+  pageEvent.pageInitJs('home');
+}
