@@ -2,11 +2,11 @@ const glob = require('glob');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const  PurifyCSSPlugin = require("purifycss-webpack");
-const PurifyCssWebpack = require('purifycss-webpack');
+const PurifyCSSPlugin = require('purifycss-webpack');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const webpackConfig = {
   entry: {
@@ -88,15 +88,29 @@ const webpackConfig = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new ExtractTextPlugin('[name]-[hash].css'),
+    new ExtractTextPlugin({
+      filename: '[name].[hash].bundle.css',
+      disable: false,
+      allChunks: true,
+    }),
+    new OptimizeCSSAssetsPlugin({
+      assetNameRegExp: /\.app\.[0-9a-zA-Z]+\.bundle\.css$/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorOptions: {
+        discardComments: { removeAll: true },
+        parser: require('postcss-safe-parser'),
+        autoprefixer: false
+      },
+      canPrint: true
+    }),
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name]-[hash].js',
+    filename: '[name].[hash].bundle.js',
     publicPath: ''
   },
   resolve: {
-    extensions: [".js",".css",".json"],
+    extensions: ['.js','.css','.json'],
     //配置别名可以加快webpack查找模块的速度
     alias: {
       framework7: path.resolve(__dirname, 'node_modules/framework7')
