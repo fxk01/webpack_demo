@@ -10,7 +10,7 @@ const PurifyCssWebpack = require('purifycss-webpack');
 
 const webpackConfig = {
   entry: {
-    app: ['./src/app/index.js'],
+    app: ['./node_modules/babel-polyfill', './src/app/index.js'],
   },
   module: {
     rules: [
@@ -46,12 +46,11 @@ const webpackConfig = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: path.resolve(__dirname, 'node_modules'),
+        use: {
+          loader: 'babel-loader'
+        },
         include: path.resolve(__dirname, 'src'),
-        query: {
-          presets: ['env']
-        }
+        exclude: '/node_modules/'
       },
       {
         test: /\.html$/,
@@ -78,10 +77,10 @@ const webpackConfig = {
       filename: 'index.html',
       template: 'index.html',
       hash: true,
-      minify:{
+      minify: {
         removeComments: false,
-        collapseWhitespace: false,
-        removeAttributeQuotes: true
+        collapseWhitespace: true,
+        removeAttributeQuotes: false,
       }
     }),
     new PurifyCSSPlugin({
@@ -96,9 +95,12 @@ const webpackConfig = {
     filename: '[name]-[hash].js',
     publicPath: ''
   },
-  resolve:{
+  resolve: {
     extensions: [".js",".css",".json"],
-    alias: {} //配置别名可以加快webpack查找模块的速度
+    //配置别名可以加快webpack查找模块的速度
+    alias: {
+      framework7: path.resolve(__dirname, 'node_modules/framework7')
+    }
   },
 };
 

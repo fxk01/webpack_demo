@@ -2,8 +2,8 @@
  入口文件
  */
 
-import Framework from '../../node_modules/framework7/js/framework7';
-import '../../node_modules/framework7/css/framework7.min.css';
+import Framework from 'framework7/js/framework7';
+import 'framework7/css/framework7.ios.min.css';
 import {
   Home,
   About,
