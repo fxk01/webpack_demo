@@ -3,7 +3,10 @@
  */
 
 import './home.less';
-import widget from '../../utils/widget'
+import { postAllGoods } from '../../api/home';
+import widget from '../../utils/widget';
+import fundGoodList from '../../components/fundGoodList/fundGoodList.html';
+import '../../components/fundGoodList/fundGoodList';
 
 export default class Home extends widget {
   constructor() {
@@ -11,7 +14,18 @@ export default class Home extends widget {
   }
 
   init() {
-    console.log(/app\.[0-9a-zA-Z]+\.bundle\.css$/g.test('app.fed1979828f3a68ed23d.bundle.css'));
-    console.log('home');
+    postAllGoods({
+      action: 'ChanpinList',
+      company_type: 1,
+      cid: 2,
+      qScore: 87,
+      typeJudge: 1,
+      sfwzytzz: 0,
+      idCard: 2017092001
+    }, (json) => {
+      let fundGoodListTpl = this.renderTpl(fundGoodList, json);
+      $('.homeList').html('').append($(fundGoodListTpl));
+      console.log(json);
+    })
   }
 };

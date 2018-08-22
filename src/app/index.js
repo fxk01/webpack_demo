@@ -2,6 +2,8 @@
  入口文件
  */
 
+import jq from 'jquery';
+import homeHtml from '../pages/home.html';
 import Framework from 'framework7/js/framework7';
 import 'framework7/css/framework7.ios.min.css';
 import {
@@ -29,6 +31,9 @@ const pageEvent = {
   },
 };
 
+window.$ = jq;
+$('.view').append(homeHtml);
+
 window.app = new Framework({
   root: '#app',
   name: 'My App',
@@ -48,6 +53,9 @@ window.app = new Framework({
     routerAjaxComplete() {
       window.app.preloader.hide()
     }
+  },
+  dialog: {
+    title: '提示',
   },
   view: {
     iosDynamicNavbar: false,

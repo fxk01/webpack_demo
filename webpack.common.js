@@ -63,7 +63,17 @@ const webpackConfig = {
         use: [
           'json-loader'
         ]
-      }
+      },
+      {
+        test: require.resolve('jquery'),
+        use: [{
+          loader: 'expose-loader',
+          options: 'jQuery'
+        }, {
+          loader: 'expose-loader',
+          options: '$'
+        }]
+      },
     ]
   },
   plugins: [

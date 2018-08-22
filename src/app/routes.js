@@ -1,5 +1,10 @@
 let routes = [
   {
+    name: 'home',
+    path: '/home/',
+    url: './src/pages/home.html',
+  },
+  {
     name: 'about',
     path: '/about/',
     url: './src/pages/about.html',
