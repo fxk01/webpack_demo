@@ -11,6 +11,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpackConfig = {
   entry: {
     app: ['./node_modules/babel-polyfill', './src/app/index.js'],
+    jquery: 'jquery',
   },
   module: {
     rules: [
@@ -99,7 +100,7 @@ const webpackConfig = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({
-      filename: '[name].[hash].bundle.css',
+      filename: 'app.[hash].bundle.css',
       disable: false,
       allChunks: true,
     }),
@@ -113,7 +114,21 @@ const webpackConfig = {
       },
       canPrint: true
     }),
+    new webpack.ProvidePlugin({
+      $: 'jquery'
+    }),
   ],
+  optimization:{
+    splitChunks:{
+      cacheGroups:{ // 单独提取JS文件引入html
+        aaa: { // 键值可以自定义
+          chunks: 'initial', //
+          name: 'jquery', // 入口的entry的key
+          enforce: true   // 强制
+        },
+      }
+    }
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].[hash].bundle.js',

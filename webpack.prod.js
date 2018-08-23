@@ -3,7 +3,7 @@ const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const common = require('./webpack.common.js');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const manifest = require('./dist/manifest.json');
+// const manifest = require('./dist/manifest.json');
 
 module.exports = merge(common, {
   mode: 'production',
