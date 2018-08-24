@@ -15,7 +15,7 @@ export default class Home extends widget {
 
   init() {
     if(window.location.href.indexOf('/home') < 0) {
-      window.history.pushState('', '', '/#!/home')
+      window.history.pushState('', '', `${window.location.pathname}#!/home`)
     }
     postAllGoods({
       action: 'ChanpinList',

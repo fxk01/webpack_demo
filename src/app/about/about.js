@@ -13,7 +13,7 @@ export default class About extends widget {
 
   init() {
     if(window.location.href.indexOf('/about') < 0) {
-      window.history.pushState('', '', '/#!/about')
+      window.history.pushState('', '', `${window.location.pathname}#!/about`)
     }
     console.log()
     $('.framework7-root').on('click', '.homeBack', () => {
