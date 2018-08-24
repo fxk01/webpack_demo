@@ -14,7 +14,7 @@ export default {
       contentType: 'application/x-www-form-urlencoded; charset=utf-8',
       success(result, status, xhr) {
         const rt = Object.assign(assign, result);
-        if(status === 200 && rt['result'] === 'OK') {
+        if(status === 200) {
           callback(result);
         } else {
 

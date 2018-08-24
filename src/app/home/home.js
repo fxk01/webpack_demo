@@ -14,6 +14,9 @@ export default class Home extends widget {
   }
 
   init() {
+    if(window.location.href.indexOf('/home') < 0) {
+      window.history.pushState('', '', '/#!/home')
+    }
     postAllGoods({
       action: 'ChanpinList',
       company_type: 1,
